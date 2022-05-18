@@ -40,11 +40,10 @@ def print_obj(el):
 
 def all_in():
     args = sys.argv
-    if len(args) != 2:
-        return
-    for el in map(str.strip, args[1].split(',')):
-        if el:
-            print_obj(el)
+    if len(args) == 2 and ',,' not in args[1]:
+        for el in map(str.strip, args[1].split(',')):
+            if el:
+                print_obj(el)
 
 
 if __name__ == '__main__':

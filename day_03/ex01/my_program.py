@@ -1,5 +1,6 @@
 from path import Path
 
+
 def main():
     try:
         Path.makedirs('local_dirs')
@@ -9,6 +10,7 @@ def main():
     f = Path('local_dirs/local_file.txt')
     f.write_lines(['local!'])
     print(f.read_text())
+
 
 if __name__ == '__main__':
     main()
