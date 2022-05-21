@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'ex03/style.css' %}">
+    <title>Color shadow</title>
+</head>
+<body>
+<h1>Color table</h1>
+<table>
+    <tr>
+        <th class="noir">Noir</th><th class="rouge">Rouge</th>
+        <th class="bleu">Bleu</th><th class="vert">Vert</th>
+    </tr>
+    {% for i in sequence %}
+        <tr>
+            <td style="background-color: rgba(73, 54, 33, {{ i }})"></td>
+            <td style="background-color: rgba(169, 64, 100, {{ i }})"></td>
+            <td style="background-color: rgba(49, 140, 231, {{ i }})"></td>
+            <td style="background-color: rgba(56, 94, 15, {{ i }})"></td>
+        </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

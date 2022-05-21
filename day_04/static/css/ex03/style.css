@@ -1,0 +1,20 @@
+td {
+    height: 40px;
+    width: 80px;
+}
+th {
+    height: 40px;
+    width: 80px;
+}
+.noir {
+    background-color: rgb(73,54,33);
+}
+.rouge {
+    background-color: rgb(169,64,100);
+}
+.bleu {
+    background-color: rgb(49,140,231);
+}
+.vert {
+    background-color: rgb(56,94,15);
+}
