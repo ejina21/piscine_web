@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block head %}
+
+{% endblock %}
+{% block content %}
+    <div class="text-center mt-5">
+        <span class="heading">Регистрация</span>
+    </div>
+
+    <div class="text-center">
+        <span class="sub-heading">Введите данные для регистрации</span>
+    </div>
+
+    <form class="text-center" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="active p-2 w-50" type="submit" value="Сохранить">
+    </form>
+{% endblock %}

@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ex',
 ]
 
 MIDDLEWARE = [
@@ -136,3 +137,5 @@ USER_NAMES = [
     'Alex',
     'Den',
 ]
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'home'
