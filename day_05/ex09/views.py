@@ -1,6 +1,5 @@
-from django.shortcuts import render
 from django.views.generic import TemplateView
-from .models import People, Planets
+from .models import People
 
 
 class DisplayView(TemplateView):
@@ -8,6 +7,5 @@ class DisplayView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['context'] = People.objects.filter(homeworld__climate__in='windy').order_by('name')
-        print(context['context'])
+        context['context'] = People.objects.filter(homeworld__climate__contains='windy').order_by('name')
         return context

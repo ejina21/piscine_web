@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+ 
+{% block content %}
+    <h1>Удаление</h1>
+    <form method="post">
+        {% csrf_token %}
+        <p>Точно хотите удалить элемент "{{ tip.content }}"?</p>
+        <input type="submit" value="Подтвердить" />
+    </form>
+{% endblock content %}
