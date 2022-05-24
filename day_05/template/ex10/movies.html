@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Данные из таблицы</title>
+</head>
+<body>
+<form action="" method="post">
+    {% csrf_token %}
+    <p>
+        <label for="id_min_date">Movies minimum release date:</label>
+        <input type="date" name="min_date" required="" id="id_min_date">
+    </p>
+
+    <p>
+        <label for="id_max_date">Movies maximum release date:</label>
+        <input type="date" name="max_date" required="" id="id_max_date">
+    </p>
+
+    <p>
+        <label for="id_diameter">Movies maximum release date:</label>
+        <input type="text" name="diameter" required="" id="id_diameter">
+    </p>
+
+    <p>
+        <label for="id_gender">Planet diameter greater than:</label>
+        <select name="gender" id="id_gender">
+          <option value="n/a">n/a</option>
+          <option value="male">male</option>
+          <option value="female">female</option>
+        </select>
+    </p>
+
+    <button type="submit">send</button>
+</form>
+<hr>
+
+{% for result in results %}
+
+    <p>{{result.name}}</p>
+
+{% endfor %}
+</body>
+</html>
