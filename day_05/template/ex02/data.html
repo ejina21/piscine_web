@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Данные из таблицы</title>
+</head>
+<body>
+<h3>Данные из таблицы</h3>
+{% if context %}
+    <table>
+        <tr>
+            <th>episode_nb</th>
+            <th>title</th>
+            <th>opening_crawl</th>
+            <th>director</th>
+            <th>producer</th>
+            <th>release_date</th>
+        </tr>
+        {% for row in context %}
+            <tr>
+            {% for el in row %}
+                <td>{{ el }}</td>
+            {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+  <p>Нет доступных данных</p>
+{% endif %}
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Обновление данных</title>
+</head>
+<body>
+<h3>Обновление элементов</h3>
+{% if form %}
+<form action="{% url 'update' %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Обновить</button>
+</form>
+{% else %}
+  <p>Нет доступных данных</p>
+{% endif %}
+</body>
+</html>
