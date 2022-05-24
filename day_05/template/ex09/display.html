@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Данные из таблицы</title>
+</head>
+<body>
+{% if context %}
+    <h3>Данные из таблицы</h3>
+    <table>
+        <tr>
+          <th>Name</th>
+          <th>Homeworld</th>
+          <th>Climate</th>
+        </tr>
+        {% for data in context %}
+            <tr>
+              <td>{{ data.0 }}</td>
+              <td>{{ data.1 }}</td>
+              <td>{{ data.2 }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% else %}
+  <p>Данные недоступны, перед использованием используйте следующую командную строку:</p>
+  <p>python3 manage.py loaddata data/ex09_initial_data.json</p>
+{% endif %}
+</body>
+</html>
