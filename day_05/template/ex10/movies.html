@@ -36,8 +36,14 @@
 <hr>
 
 {% for result in results %}
-
     <p>{{result.name}}</p>
+    <p>{% for x in result.movies_people.all %}
+        {{x.title}}
+        {% endfor %}
+    </p>
+    <p>{{result.gender}}</p>
+
+    <p>{{result.homeworld.diameter}}</p>
 
 {% endfor %}
 </body>

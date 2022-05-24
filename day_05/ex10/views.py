@@ -4,7 +4,7 @@ from .models import Movies, People, Planets
 
 
 def movies(request):
-    results = []
+    results = "Nothing corresponding to your research"
 
     if request.method == 'POST':
         min_date = request.POST.get('min_date', '')
@@ -13,8 +13,10 @@ def movies(request):
         gender = request.POST.get('gender', '')
         people = People.objects.all()
         lookups = (
-            Q(gender=gender) | Q(homeworld__diameter=diameter)
+            Q(gender=gender) &
+            Q(homeworld__diameter__gte=diameter) &
+            Q(movies_people__release_date__range=[min_date, max_date])
         )
-        results = People.objects.all()
+        results = People.objects.filter(lookups)
 
     return render(request, 'ex10/movies.html', {'results': results})
