@@ -15,9 +15,9 @@
         </tr>
         {% for data in context %}
             <tr>
-              <td>{{ data.0 }}</td>
-              <td>{{ data.1 }}</td>
-              <td>{{ data.2 }}</td>
+              <td>{{ data.name }}</td>
+              <td>{{ data.homeworld }}</td>
+              <td>{{ data.homeworld.climate }}</td>
             </tr>
         {% endfor %}
     </table>
