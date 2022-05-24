@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'ex05',
     'ex06',
     'ex07',
+    'ex08',
+    'ex09',
 ]
 
 MIDDLEWARE = [
@@ -85,8 +87,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'djangotraining',
-        'USER': 'djangouser',
-        'PASSWORD': 'secret',
+        'USER': 'postgres',
+        'PASSWORD': 'password',
         'HOST': 'localhost',
         'PORT': '5432',
     }

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 import psycopg2
 
+
 # Create your views here.
 def create_table(request):
     try:

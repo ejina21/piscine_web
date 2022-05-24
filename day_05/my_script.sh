@@ -6,8 +6,8 @@ source django_venv/bin/activate
 python3 -m pip install --force-reinstall -r requirement.txt
 
 name_bd=djangotraining
-user=djangouser
-pass=secret
+user=postgres
+pass=password
 
 psql postgres <<-EOSQL
     CREATE USER $user WITH PASSWORD '$pass';
