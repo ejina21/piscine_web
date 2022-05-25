@@ -1,27 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<ul>
+<h1 class="h3 mb-3 font-weight-normal">TIPS:</h1>
 {% for el in elements %}
-    <li>
-        {{el.content}} | {{el.author}} | {{el.date}} | {{el.positive}} | {{el.negative}}
+    <div class="input-group w-75">
+        <p class="form-control">{{el.content}} === {{el.author}} === {{el.date}} === Like: {{el.positive}} === Dislike: {{el.negative}}</p>
         {% if user.is_authenticated %}
-        <a href="{% url 'remove' el.pk %}">Удалить</a>
-        <a href="{% url 'upvote' el.pk %}">Like</a>
-        <a href="{% url 'downvote' el.pk %}">Dislike</a>
+        <div class="input-group-append">
+            <a class="btn btn-outline-secondary" href="{% url 'remove' el.pk %}">Удалить</a>
+            <a class="btn btn-outline-secondary" href="{% url 'upvote' el.pk %}">Like</a>
+            <a class="btn btn-outline-secondary" href="{% url 'downvote' el.pk %}">Dislike</a>
+        </div>
         {% endif %}
-    </li>
+    </div>
 {% endfor %}
-</ul>
 {% if user.is_authenticated %}
-<form method="post">
+<form method="post" class="form-signin" style="max-width: 330px">
+    <h1 class="h3 mb-3 font-weight-normal">Добавить TIP</h1>
     {% csrf_token %}
-    <div class="d-flex flex-column chart-bg mx-2 mt-4 p-2 align-items-center">
-        {{ form }}
-    </div>
-    <div class="d-flex flex-column mt-2 align-items-center">
-        <input class="active p-2 w-50" type="submit" value="Добавить">
-    </div>
+    {{ form.as_p }}
+    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Добавить">
 </form>
 {% endif %}
 {% endblock %}

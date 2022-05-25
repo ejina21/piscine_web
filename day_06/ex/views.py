@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView, CreateView, DeleteView, View
+from django.views.generic import TemplateView, CreateView, View
 
 from ex.forms import UserCreationForm, TipForm
 from django.http import HttpResponseRedirect
