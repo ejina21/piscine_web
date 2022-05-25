@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView, CreateView, DeleteView, View
 
-from day_06.settings import USER_NAMES
 from ex.forms import UserCreationForm, TipForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
@@ -15,7 +14,9 @@ class HomePageView(TemplateView):
     def post(self, request, *args, **kwargs):
         context = self.get_context_data()
         if context["form"].is_valid():
-            context["form"].save()
+            tip = context["form"].save(commit=False)
+            tip.author = request.user
+            tip.save()
         return super(TemplateView, self).render_to_response(context)
 
     def get_context_data(self, **kwargs):
@@ -24,6 +25,7 @@ class HomePageView(TemplateView):
         elements = Tip.objects.all()
         context['elements'] = elements
         context['form'] = form
+        context['message'] = kwargs['message'] if 'message' in kwargs else ''
         return context
 
 
@@ -45,14 +47,26 @@ class SignUpView(CreateView):
         return render(request, self.template_name, {'form': form})
 
 
-class DeleteTipView(LoginRequiredMixin, DeleteView):
-    model = Tip
-    template_name = 'remove.html'
+class DeleteTipView(LoginRequiredMixin, View):
     login_url = 'login'
-    success_url = reverse_lazy('home')
+
+    def get(self, request, *args, **kwargs):
+        tip = Tip.objects.get(pk=kwargs['pk'])
+        if tip.author == request.user or request.user.is_staff \
+                or request.user.is_superuser or request.user.profileuser.reputation >= 30:
+            plus = tip.positive * 5
+            minus = tip.negative * 2
+            summary = minus - plus
+            tip.author.profileuser.reputation += summary
+            tip.author.save()
+            tip.delete()
+
+        return HttpResponseRedirect(reverse_lazy('home'))
 
 
-class UpvoteView(View):
+class UpvoteView(LoginRequiredMixin, View):
+    login_url = 'login'
+
     def get(self, request, *args, **kwargs):
         tip = Tip.objects.get(pk=kwargs['pk'])
         up = Upvote.objects.filter(
@@ -61,6 +75,8 @@ class UpvoteView(View):
         )
         if up.exists():
             tip.positive -= 1
+            tip.author.profileuser.reputation -= 5
+            tip.author.save()
             up.delete()
         else:
             Upvote.objects.create(
@@ -68,25 +84,35 @@ class UpvoteView(View):
                 user=request.user,
             )
             tip.positive += 1
+            tip.author.profileuser.reputation += 5
+            tip.author.save()
         tip.save()
         return HttpResponseRedirect(reverse_lazy('home'))
 
 
-class DownvoteView(View):
+class DownvoteView(LoginRequiredMixin, View):
+    login_url = 'login'
+
     def get(self, request, *args, **kwargs):
         tip = Tip.objects.get(pk=kwargs['pk'])
-        down = Downvote.objects.filter(
-            tip=tip,
-            user=request.user,
-        )
-        if down.exists():
-            tip.negative -= 1
-            down.delete()
-        else:
-            Downvote.objects.create(
+        if tip.author == request.user or request.user.is_staff \
+                or request.user.is_superuser or request.user.profileuser.reputation >= 15:
+            down = Downvote.objects.filter(
                 tip=tip,
                 user=request.user,
             )
-            tip.negative += 1
-        tip.save()
+            if down.exists():
+                tip.negative -= 1
+                tip.author.profileuser.reputation += 2
+                tip.author.save()
+                down.delete()
+            else:
+                Downvote.objects.create(
+                    tip=tip,
+                    user=request.user,
+                )
+                tip.negative += 1
+                tip.author.profileuser.reputation -= 2
+                tip.author.save()
+            tip.save()
         return HttpResponseRedirect(reverse_lazy('home'))

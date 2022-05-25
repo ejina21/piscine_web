@@ -32,4 +32,4 @@ class UserCreationForm(ModelForm):
 class TipForm(ModelForm):
     class Meta:
         model = Tip
-        fields = ('content', 'author')
+        fields = ('content',)
