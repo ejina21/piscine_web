@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1 class="h3 mb-3 font-weight-normal">TIPS:</h1>
-{% for el in elements %}
-    <div class="input-group w-75">
-        <p class="form-control">{{el.content}} === {{el.author}} === {{el.date}} === Like: {{el.positive}} === Dislike: {{el.negative}}</p>
+    <h1 class="h3 mb-3 font-weight-normal">TIPS:</h1>
+    {% for el in elements %}
+    <div class="input-group">
+        <p class="form-control">{{el.content}} === {{el.author}} === {{el.date}} === Like: {{el.positive}} === Dislike:
+            {{el.negative}}</p>
         {% if user.is_authenticated %}
         <div class="input-group-append">
             <a class="btn btn-outline-secondary" href="{% url 'remove' el.pk %}">Удалить</a>
@@ -13,13 +14,22 @@
         </div>
         {% endif %}
     </div>
-{% endfor %}
-{% if user.is_authenticated %}
-<form method="post" class="form-signin" style="max-width: 330px">
-    <h1 class="h3 mb-3 font-weight-normal">Добавить TIP</h1>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input class="btn btn-lg btn-primary btn-block" type="submit" value="Добавить">
-</form>
-{% endif %}
+    {% endfor %}
+    {% if user.is_authenticated %}
+
+    <form method="post" class="form-signin">
+        <h1 class="h3 mb-3 font-weight-normal">Добавить TIP</h1>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="btn btn-primary " type="submit" value="Добавить">
+    </form>
+    {% endif %}
+
+<style>
+    p.form-control {
+            overflow: scroll;
+            max-height: 100px;
+            height: auto;
+    }
+</style>
 {% endblock %}

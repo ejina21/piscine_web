@@ -3,10 +3,10 @@
 ВХОД
 {% endblock %}
 {% block content %}
-    <form method="post" class="form-signin" style="max-width: 330px">
+    <form method="post" class="form-signin">
         <h1 class="h3 mb-3 font-weight-normal">Введите логин и пароль</h1>
         {% csrf_token %}
         {{form.as_p}}
-      <input class="btn btn-lg btn-primary btn-block" type="submit" value="Войти">
+        <input class="btn btn-md btn-primary" type="submit" value="Войти">
     </form>
 {% endblock %}

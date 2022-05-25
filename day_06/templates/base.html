@@ -1,52 +1,61 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <title>{% block head %}HOME{% endblock %}</title>
-  </head>
+</head>
 
-  <body class="text-center">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+<body class="text-center">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
+    </button>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'home' %}">MY MEGA SITE<span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            {% if user.is_authenticated %}
-            <a class="nav-link disabled" >Hello, <span>{{ user.username }} ({{user.profileuser.reputation}})</span></a>
-            {% else %}
-            <a class="nav-link disabled" >Hello, <span id="user_name">{{ first_name }}</span></a>
-            {% endif %}
-          </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'home' %}">MY MEGA SITE<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                {% if user.is_authenticated %}
+                <a class="nav-link disabled">Hello,
+                    <span>{{ user.username }} ({{user.profileuser.reputation}})</span></a>
+                {% else %}
+                <a class="nav-link disabled">Hello, <span id="user_name">{{ first_name }}</span></a>
+                {% endif %}
+            </li>
         </ul>
-      </div>
-      {% if not user.is_authenticated %}
-        <a href="{% url 'signup' %}">Зарегистрироваться</a>/
-        <a href="{% url 'login' %}">Войти</a>
-      {% else %}
-        <a href="{% url 'logout' %}">Выйти</a>
-      {% endif %}
-    </nav>
-  {% block content %}
-  {% endblock %}
-  <script>
-      let names_list = {{names_list|safe }}
+    </div>
+    <div class="col-md-3">
+            {% if not user.is_authenticated %}
+            <a href="{% url 'signup' %}" class="btn btn-primary mr-1">Зарегистрироваться</a>
+            <a href="{% url 'login' %}" class="btn btn-primary ml-1">Войти</a>
+            {% else %}
+            <a href="{% url 'logout' %}" class="btn btn-primary ml-1">Выйти</a>
+            {% endif %}
+    </div>
+</nav>
 
-      setInterval(changeText, 42000);
+<div class="container">
+    <div class="col-md-12">
+    {% block content %}
+    {% endblock %}
+    </div>
+</div>
+<script>
+    let names_list = {{ names_list | safe }}
 
-      function changeText()
-      {
-          var greeting_id = Math.floor(Math.random() * names_list.length);
-          document.getElementById('user_name').innerText = names_list[greeting_id];
-      }
-  </script>
-  </body>
+    setInterval(changeText, 42000);
+
+    function changeText() {
+        var greeting_id = Math.floor(Math.random() * names_list.length);
+        document.getElementById('user_name').innerText = names_list[greeting_id];
+    }
+</script>
+</body>
 </html>
