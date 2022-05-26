@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+    <div class="col-md-6 px-0">
+      <h1 class="display-4 font-italic">{{art.title}}</h1>
+      <div class="mb-1 text-muted">{{art.created}}</div>
+      <p class="lead my-3">{{art.content}}</p>
+      <p class="lead mb-0">{{art.synopsis}}</p>
+      <p class="lead mb-0">{{art.author}}</p>
+    </div>
+</div>
+<div style="width: 40%; margin: 0 auto;">
+    <form method="post" action="{% url 'add_fav' art.pk %}">
+        {% csrf_token %}
+        {{ form }}
+        <input class="btn btn-lg btn-primary btn-block" type="submit" value="{% trans 'Add to favourite' %}">
+    </form>
+</div>
+{% endblock %}

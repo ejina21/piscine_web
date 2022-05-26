@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<ul class="list-group">
+    {% for art in articles %}
+    <li class="list-group-item"><a href="{% url 'detail' art.article.pk %}">{{art.article.title}}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

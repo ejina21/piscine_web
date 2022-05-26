@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">{% trans 'Title' %}</th>
+      <th scope="col">{% trans 'Author' %}</th>
+      <th scope="col">{% trans 'Date created' %}</th>
+      <th scope="col">{% trans 'Synopsis' %}</th>
+      <th scope="col">{% trans 'After publish' %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for art in articles %}
+      <tr>
+        <td>{{art.title|slice:20}}{% if art.title|length > 20 %}...{% endif %}</td>
+        <td>{{art.author|slice:20}}{% if art.title|length > 20 %}...{% endif %}</td>
+        <td>{{art.created|slice:20}}{% if art.title|length > 20 %}...{% endif %}</td>
+        <td>{{art.synopsis|slice:20}}{% if art.title|length > 20 %}...{% endif %}</td>
+        <td>{{art.get_time}} {% trans 'minutes' %}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

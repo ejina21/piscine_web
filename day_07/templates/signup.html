@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block head %}
+{% trans 'Registration' %}
+{% endblock %}
+{% block content %}
+<div style="width: 40%; margin: 0 auto;">
+    <form method="post">
+        <h1 class="h3 mb-3 font-weight-normal">{% trans 'Input data for register' %}</h1>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="btn btn-lg btn-primary btn-block" type="submit" value="{% trans 'Save' %}">
+    </form>
+</div>
+{% endblock %}

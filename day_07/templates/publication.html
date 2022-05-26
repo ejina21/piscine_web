@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">{% trans 'Title' %}</th>
+      <th scope="col">{% trans 'Synopsis' %}</th>
+      <th scope="col">{% trans 'Date created' %}</th>
+      <th scope="col">{% trans 'Detail' %}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for art in articles %}
+      <tr>
+        <td>{{art.title}}</td>
+        <td>{{art.synopsis}}</td>
+        <td>{{art.created}}</td>
+        <td><a href="{% url 'detail' art.pk %}">{% trans 'More' %}..</a></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<a class="btn btn-lg btn-primary btn-block" href="{% url 'publish' %}">{% trans 'Add publication' %}</a>
+{% endblock %}

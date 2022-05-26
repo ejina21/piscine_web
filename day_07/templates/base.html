@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    {% load i18n %}
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>{% block head %}{% trans 'HOME' %}{% endblock %}</title>
+</head>
+
+<body class="text-center">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'home' %}">MY MEGA SITE<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'articles' %}">{% trans 'Articles' %}</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li>
+                <a class="nav-link" href="{% url 'favourite' %}">{% trans 'Favourite' %}</a>
+            </li>
+            <li>
+                <a class="nav-link" href="{% url 'publication' %}">{% trans 'Publication' %}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled">{% trans 'Logged as,' %}
+                    <span>{{ user.username }}</span></a>
+            </li>
+            {% endif %}
+
+        </ul>
+    </div>
+    <div class="col-md-3">
+            {% get_available_languages as languages %}
+            {% for lang_code, lang_name in languages %}
+                {% language lang_code %}
+                <a href="{% url 'set_lang' lang_code %}">{{ lang_name }}</a>
+                {% endlanguage %}
+            {% endfor %}
+            {% if not user.is_authenticated %}
+            <form method="post" class="form-inline" action="{% url 'login' %}">
+                {% csrf_token %}
+                {{login}}
+              <button type="submit" class="btn btn-primary mb-2">{% trans 'Login' %}</button>
+            </form>
+            <a href="{% url 'signup' %}" class="btn btn-primary mr-1">{% trans 'Register' %}</a>
+<!--            <a href="{% url 'login' %}" class="btn btn-primary ml-1">{% trans 'Login' %}</a>-->
+            {% else %}
+            <a href="{% url 'logout' %}" class="btn btn-primary ml-1">{% trans 'Logout' %}</a>
+            {% endif %}
+    </div>
+</nav>
+
+<div class="container">
+    <div class="col-md-12">
+    {% block content %}
+    {% endblock %}
+    </div>
+</div>
+</body>
+</html>

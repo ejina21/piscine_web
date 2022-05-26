@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block head %}
+{% trans 'LOGIN' %}
+{% endblock %}
+{% block content %}
+    <form method="post" class="form-signin">
+        <h1 class="h3 mb-3 font-weight-normal">{% trans 'Input login and password' %}</h1>
+        {% csrf_token %}
+        {{form.as_p}}
+        <input class="btn btn-md btn-primary" type="submit" value="{% trans 'Login' %}">
+    </form>
+{% endblock %}
