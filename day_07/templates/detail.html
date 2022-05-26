@@ -12,10 +12,12 @@
     </div>
 </div>
 <div style="width: 40%; margin: 0 auto;">
+{% if user.is_authenticated %}
     <form method="post" action="{% url 'add_fav' art.pk %}">
         {% csrf_token %}
         {{ form }}
         <input class="btn btn-lg btn-primary btn-block" type="submit" value="{% trans 'Add to favourite' %}">
     </form>
+{% endif %}
 </div>
 {% endblock %}

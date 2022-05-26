@@ -43,7 +43,7 @@ class SignUpView(CreateView):
             new_user = form.save(commit=False)
             new_user.set_password(form.cleaned_data['password'])
             new_user.save()
-            return HttpResponseRedirect(reverse_lazy('login'))
+            return HttpResponseRedirect(reverse_lazy('home'))
         return render(request, self.template_name, {'form': form})
 
 

@@ -3,69 +3,117 @@
 <head>
     <meta charset="utf-8">
     {% load i18n %}
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
     <title>{% block head %}{% trans 'HOME' %}{% endblock %}</title>
 </head>
+<style>
+    .wrapper {
+        padding: 20px;
+    }
+    .lang-wrapper {
+        float: right;
+        font-size: 12px;
+    }
 
-<body class="text-center">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    .header_title {
+        font-size: 42px;
+    }
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    .header_title span {
+        font-size: 25px;
+        font-weight: normal;
+        color: #7b7a7a;
+    }
+
+    a.nav-link {
+        color: #7b7a7a !important;
+    }
+
+    li.nav-item.active a {
+        color: #fff;
+        background: black;
+        border-radius: 2px;
+    }
+
+    li.nav-item.active a {
+        color: #fff !important;
+    }
+
+    .logo {
+        color: #7b7a7a;
+    }
+</style>
+<body>
+<header>
+    <div class="row wrapper">
+        <div class="col-md-6">
+            <p class="header_title">Articles <span>Share your writings</span></p>
+        </div>
+        <div class="col-md-6">
+            <div class="lang-wrapper">
+                {% get_available_languages as languages %}
+                {% for lang_code, lang_name in languages %}
+                    {% language lang_code %}
+                        <a href="{% url 'set_lang' lang_code %}">{{ lang_name }}</a>
+                    {% endlanguage %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+      <a class="navbar-brand" href="{% url 'home' %}"><span class="fas fa-book logo"></span></a>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'home' %}">MY MEGA SITE<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'articles' %}">{% trans 'Articles' %}</a>
+            <li class="nav-item {% if request.resolver_match.url_name == 'articles' %}active{% endif %}">
+                <a class="nav-link"
+                   href="{% url 'articles' %}">{% trans 'Articles' %}</a>
             </li>
             {% if user.is_authenticated %}
-            <li>
-                <a class="nav-link" href="{% url 'favourite' %}">{% trans 'Favourite' %}</a>
-            </li>
-            <li>
-                <a class="nav-link" href="{% url 'publication' %}">{% trans 'Publication' %}</a>
-            </li>
-            <li class="nav-item">
+                <li class="nav-item {% if request.resolver_match.url_name == 'favourite' %}active{% endif %}">
+                    <a class="nav-link"
+                       href="{% url 'favourite' %}">{% trans 'Favourite' %}</a>
+                </li>
+                <li class="nav-item {% if request.resolver_match.url_name == 'publication' %}active{% endif %}">
+                    <a class="nav-link"
+                       href="{% url 'publication' %}">{% trans 'Publication' %}</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a href="{% url 'signup' %}" class="nav-link">{% trans 'Register' %}</a>
+                </li>
+            {% endif %}
+        </ul>
+            {% if not user.is_authenticated %}
+                <form method="post" class="form-inline" action="{% url 'login' %}">
+                {% csrf_token %}
+
+              <input type="text" name="username" id="username" class="form-control mr-sm-2" placeholder="Login">
+              <input type="password" name="password" id="id_password" class="form-control mr-sm-2" placeholder="password">
+              <button type="submit" class="btn btn-light">{% trans 'Login' %}</button>
+            </form>
+
+                <!--            <a href="{% url 'login' %}" class="btn btn-primary ml-1">{% trans 'Login' %}</a>-->
+            {% else %}
                 <a class="nav-link disabled">{% trans 'Logged as,' %}
                     <span>{{ user.username }}</span></a>
-            </li>
-            {% endif %}
+                <a href="{% url 'logout' %}"
+                   class="nav-link">{% trans 'Logout' %}</a>
+            {% endif %}z
+      </div>
+    </nav>
 
-        </ul>
-    </div>
-    <div class="col-md-3">
-            {% get_available_languages as languages %}
-            {% for lang_code, lang_name in languages %}
-                {% language lang_code %}
-                <a href="{% url 'set_lang' lang_code %}">{{ lang_name }}</a>
-                {% endlanguage %}
-            {% endfor %}
-            {% if not user.is_authenticated %}
-            <form method="post" class="form-inline" action="{% url 'login' %}">
-                {% csrf_token %}
-                {{login}}
-              <button type="submit" class="btn btn-primary mb-2">{% trans 'Login' %}</button>
-            </form>
-            <a href="{% url 'signup' %}" class="btn btn-primary mr-1">{% trans 'Register' %}</a>
-<!--            <a href="{% url 'login' %}" class="btn btn-primary ml-1">{% trans 'Login' %}</a>-->
-            {% else %}
-            <a href="{% url 'logout' %}" class="btn btn-primary ml-1">{% trans 'Logout' %}</a>
-            {% endif %}
-    </div>
-</nav>
-
-<div class="container">
-    <div class="col-md-12">
     {% block content %}
     {% endblock %}
-    </div>
 </div>
 </body>
 </html>

@@ -99,6 +99,10 @@ LANGUAGES = (
     ('ru', 'Russian'),
 )
 
+LOCALE_PATHS = (
+    BASE_DIR / "locale",
+)
+
 LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'UTC'

@@ -1,0 +1,124 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-26 20:42+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: templates/base.html:14
+msgid "HOME"
+msgstr ""
+
+#: templates/base.html:79
+msgid "Articles"
+msgstr ""
+
+#: templates/base.html:84
+msgid "Favourite"
+msgstr ""
+
+#: templates/base.html:88 templates/publish.html:5
+msgid "Publication"
+msgstr ""
+
+#: templates/base.html:92
+msgid "Register"
+msgstr ""
+
+#: templates/base.html:102 templates/base.html:105
+#: templates/registration/login.html:11
+msgid "Login"
+msgstr ""
+
+#: templates/base.html:107
+msgid "Logged as,"
+msgstr ""
+
+#: templates/base.html:110
+msgid "Logout"
+msgstr ""
+
+#: templates/detail.html:19
+msgid "Add to favourite"
+msgstr ""
+
+#: templates/home.html:8 templates/publication.html:8
+msgid "Title"
+msgstr ""
+
+#: templates/home.html:9 templates/publication.html:9
+msgid "Synopsis"
+msgstr ""
+
+#: templates/home.html:10
+msgid "Writer"
+msgstr ""
+
+#: templates/home.html:11 templates/publication.html:10
+msgid "Date created"
+msgstr ""
+
+#: templates/home.html:12
+msgid "When"
+msgstr ""
+
+#: templates/home.html:13 templates/publication.html:11
+msgid "Detail"
+msgstr ""
+
+#: templates/home.html:23
+msgid "minutes"
+msgstr ""
+
+#: templates/home.html:24
+msgid "Read"
+msgstr ""
+
+#: templates/publication.html:20
+msgid "More"
+msgstr ""
+
+#: templates/publication.html:25
+msgid "Add publication"
+msgstr ""
+
+#: templates/publish.html:10
+msgid "Input information"
+msgstr ""
+
+#: templates/publish.html:13
+msgid "Publish"
+msgstr ""
+
+#: templates/registration/login.html:4
+msgid "LOGIN"
+msgstr ""
+
+#: templates/registration/login.html:8
+msgid "Input login and password"
+msgstr ""
+
+#: templates/signup.html:4
+msgid "Registration"
+msgstr ""
+
+#: templates/signup.html:9
+msgid "Input data for register"
+msgstr ""
+
+#: templates/signup.html:12
+msgid "Save"
+msgstr ""
