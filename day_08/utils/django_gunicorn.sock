@@ -1,0 +1,11 @@
+Description=day08
+After=network.target
+
+[Service]
+User=root
+Group=www-data
+WorkingDirectory=/project/
+ExecStart=/usr/local/bin/gunicorn/gunicorn --access-logfile - --workers 3 --bind unix:/project/day_08.sock day_08.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
