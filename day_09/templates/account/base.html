@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <script type="text/javascript" src="{% static 'jquery.js' %}"></script>
+    <title>{% block head %}{% endblock %}</title>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var $myForm = $('.my-form')
+            var $mybtn = $('.btn')
+            var $crf_token = $('[name="csrfmiddlewaretoken"]').attr('value');
+            $myForm.submit(function (event) {
+                event.preventDefault()
+                var $formData = $(this).serialize()
+                var $thisURL = $myForm.attr('data-url') || window.location.href
+                $.ajax({
+                    method: "POST",
+                    url: $thisURL,
+                    data: $formData,
+                    success: handleFormSuccess,
+                    error: handleFormError,
+                })
+            })
+            $mybtn.click(function () {
+
+                $.ajax({
+                    method: "POST",
+                    url: "{% url 'logout' %}",
+                    headers:{"csrfmiddlewaretoken": $crf_token},
+                    success: handleLogoutSuccess,
+                })
+            })
+
+            function handleFormSuccess(data, textStatus, jqXHR) {
+                console.log(data)
+                console.log(textStatus)
+                console.log(jqXHR)
+                $('#body').html(data)
+            }
+
+            function handleFormError(jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR)
+                console.log(textStatus)
+                console.log(errorThrown)
+            }
+
+            function handleLogoutSuccess(data) {
+                $('#body').html(data)
+                console.log("logout success")
+            }
+        });
+    </script>
+</head>
+<body id="body">
+{% block content %}
+{% endblock %}
+</body>
+</html>
