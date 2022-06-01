@@ -1,6 +1,6 @@
 #!/bin/sh
-"/usr/local/bin/python3" -m venv "local_lib"
-source "local_lib"/bin/activate
+"/usr/local/bin/python3" -m venv local_lib
+source local_lib/bin/activate
 
 python3 -m pip --version
 

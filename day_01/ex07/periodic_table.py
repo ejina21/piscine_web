@@ -36,7 +36,7 @@ def generate_html(data) -> str:
 
 def periodic_table():
     data_dict = {}
-    with open('day_01/ex07/periodic_table.txt', 'r') as f: #TODO change path
+    with open('periodic_table.txt', 'r') as f: #TODO change path
         elements = f.readlines()
         for el in elements:
             name, param = el.split('=', 1)
